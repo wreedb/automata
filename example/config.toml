@@ -1,0 +1,18 @@
+[[prog]]
+name = "swaync"
+
+[[prog]]
+name = "walker"
+args = ["--gapplication-service"]
+
+[[prog]]
+name = "swww-daemon"
+args = ["-q"]
+
+[[prog]]
+name = "swhks"
+directory = "$HOME"
+
+[[prog]]
+name = "swhkd"
+directory = "$HOME"

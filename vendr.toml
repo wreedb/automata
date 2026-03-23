@@ -1,0 +1,5 @@
+[[repos]]
+name = "toml"
+url = "https://github.com/dlang-community/toml.git"
+path = "deps/toml"
+tag = "v2.0.1"

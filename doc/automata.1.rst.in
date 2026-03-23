@@ -1,0 +1,64 @@
+==========
+ automata
+==========
+
+-----------------------------------------------
+Automatically and declaratively launch programs
+-----------------------------------------------
+
+:Version: automata @VERSION@
+:Date: @DATE@
+:Manual section: 1
+:Manual group: User Commands
+
+SYNOPSIS
+========
+
+:strong:`automata` [:emphasis:`options`...]
+
+DESCRIPTION
+===========
+
+:strong:`automata` reads a declarative configuration file and launches the programs defined within.
+
+OPTIONS
+=======
+
+:strong:`-c`, :strong:`--config` :emphasis:`PATH`
+
+   Operate using the configuration file at :emphasis:`PATH`, rather than the
+   default file path.
+
+:strong:`-v`, :strong:`--verbose`
+
+   By default, automata redirects the output of all launched programs,
+   this option will cause the output to instead be printed normally to
+   standard output and standard error.
+
+:strong:`-V`, :strong:`--version`
+
+   Display the version of :strong:`automata`
+
+:strong:`-V`, :strong:`--version`
+
+   Display brief usage info
+
+AUTHORS
+=======
+
+    Will Reed *<wreed@disroot.org>*
+
+COPYRIGHT
+=========
+
+    Copyright (c) 2026 *Will Reed*. License GPLv3+:
+    GNU General Public License version 3 or later.
+    See *https://gnu.org/licenses/gpl-3.0.html* for information.
+
+    This is **free software**, you are free to change and redistribute it.
+    There is *NO WARRANTY*, to the extent permitted by law.
+
+VERSION
+=======
+
+:strong:`automata` version :emphasis:`@VERSION@`, released in @MONTH@ @YEAR@

@@ -1,0 +1,16 @@
+root = true
+
+[*]
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*.{d,bash,sh}]
+indent_style = space
+indent_size = 4
+
+[makefile]
+indent_style = tab
+tab_width = 4
+
+[.version]
+insert_final_newline = false

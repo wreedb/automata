@@ -1,0 +1,20 @@
+version = 1
+
+SPDX-PackageName = "automata"
+SPDX-PackageSupplier = "Will Reed <wreed@disroot.org>"
+
+[[annotations]]
+SPDX-FileCopyrightText = "2026 Will Reed <wreed@disroot.org>"
+SPDX-License-Identifier = "GPL-3.0-or-later"
+path = [
+    "*.rst",
+    "*.toml",
+    ".version",
+    ".gitignore",
+    ".editorconfig",
+    "source/**",
+    "doc/**",
+    "example/**",
+    "aux/**",
+    "makefile"
+]

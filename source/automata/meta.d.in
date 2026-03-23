@@ -1,0 +1,3 @@
+module automata.meta;
+
+static string VERSION = "@VERSION@";
