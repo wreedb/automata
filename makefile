@@ -46,13 +46,19 @@ OBJECTS := $(addprefix $(BUILDDIR)/,$(OBJECTS))
 
 include aux/toml.mk
 
-all: $(TOML_LIB) $(AUTOMATA_LIB) automata doc/automata.1
+all: $(BUILDDIR) deps/toml $(TOML_LIB) $(AUTOMATA_LIB) automata
 default: all
+
+docs: doc/automata.1
 
 DFLAGS += -Isource -I$(TOML_DIR)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
+
+deps/toml:
+	@echo -e "(\033[35mDEPS\033[m)"
+	@misc/deps.sh
 
 source/automata/meta.d: source/automata/meta.d.in
 	@sed "s/@VERSION@/$(VERSION)/g" $< > $@
@@ -110,6 +116,10 @@ clean-docs:
 clean: clean-automata clean-toml clean-docs
 	@echo -e "(\033[33mCLEAN\033[m) all"
 	@-rm -f $(OBJECTS) automata *.o source/automata/meta.d
+
+distclean: clean
+	@echo -e "(\033[33;1mDISTCLEAN\033[m)"
+	@-rm -fr deps .build
 
 install: automata doc/automata.1
 	@echo -e "(\033[32mINSTALL\033[m)" automata

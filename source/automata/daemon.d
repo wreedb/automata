@@ -14,6 +14,7 @@ class daemon
     string[] args;
     bool clean_env;
     string[string] envs;
+    string[] unsetenvs;
 
     this() {};
 
@@ -76,16 +77,45 @@ class daemon
             writefln("\033[33mautomata\033[m: %s is already running, skipping.", name);
             return 0;
         }
-        auto devnull = File("/dev/null", "w");
-        scope(exit) devnull.close();
         try
         {
-            string wd = (wdir.length > 0 ? wdir : null);
+            Config cfg;
+            string wd;
             Pid pid;
             if (verbose)
-                pid = spawnProcess(this.cmdline(), stdin, stdout, stderr, null, Config.none, wd);
+            {
+                wd = (wdir.length > 0 ? wdir : null);
+                cfg = Config.newEnv;
+                string[string] nenvs = environment.toAA;
+                foreach (k, v; envs)
+                    nenvs[k] = v;
+
+                foreach (k; unsetenvs)
+                    nenvs.remove(k);
+
+                if (clean_env)
+                    nenvs = null;
+                pid = spawnProcess(this.cmdline(), stdin, stdout, stderr, nenvs, cfg, wd);
+            }
             else
-                pid = spawnProcess(this.cmdline(), stdin, devnull, devnull, null, Config.none, wd);
+            {
+                auto dnull = File("/dev/null", "w");
+                scope(exit) dnull.close();
+                wd = (wdir.length > 0 ? wdir : null);
+                cfg = Config.newEnv;
+                string[string] nenvs = environment.toAA;
+                foreach (k, v; envs)
+                    nenvs[k] = v;
+
+                foreach (k; unsetenvs)
+                    nenvs.remove(k);
+
+                if (clean_env)
+                    nenvs = null;
+
+                pid = spawnProcess(this.cmdline(), stdin, dnull, dnull, nenvs, cfg, wd);
+            }
+
         }
         catch (ProcessException err)
         {
@@ -136,6 +166,28 @@ daemon[] parseConfig(string path)
                     d.args ~= arg.str;
                 }
             }
+
+            if ("freshenv" in p)
+            {
+                d.clean_env = p["freshenv"].boolean;
+            }
+
+            if ("envs" in p)
+            {
+                foreach (k, v; p["envs"])
+                {
+                    d.envs[k] = v.str;
+                }
+            }
+
+            if ("unset-envs" in p)
+            {
+                foreach (key; p["unset-envs"].array)
+                {
+                    d.unsetenvs ~=  key.str;
+                }
+            }
+
             daemons ~= d;
         }
     }

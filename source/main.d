@@ -80,6 +80,8 @@ int main(string[] args)
     auto daemons = parseConfig(s.confpath);
     int result = 0;
     foreach (d; daemons)
+    {
         result += d.run(s.verbose);
+    }
     return result;
 }
